@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "compile": "nodemon --exec npm run watch",
     "watch": "webpack --config webpack.common.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
