@@ -14,7 +14,7 @@ export default function App() {
 
                     {/* Logo Row */}
                     <div className="row no-gutters border border-danger" style={{ height: '20%' }}>
-                        <input type="button" name="button" value="Notify me !" onClick={handleNotifyClick}></input>
+
                     </div>
 
                     {/* Sidebar Row */}

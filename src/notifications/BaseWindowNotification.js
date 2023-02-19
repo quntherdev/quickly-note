@@ -4,6 +4,8 @@ class BaseWindowNotification{
 /*    const handleNotifyClick = () => {
         var notification = new BaseWindowNotification('Titre de la notif', 'Et voici le texte, corp du message', '../assets/pictures/notion-logo.svg', '2500');
         notification.notify();
+
+        <input type="button" name="button" value="Notify me !" onClick={handleNotifyClick}></input>
     }*/
 
     constructor(header,content,iconPath,millisecondDuration) {
