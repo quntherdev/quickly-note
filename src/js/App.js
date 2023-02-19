@@ -1,20 +1,23 @@
 import React from 'react';
 import Sidebar from "./Sidebar";
 import NotesTable from "./NotesTable";
-import BaseWindowNotification from "../notifications/BaseWindowNotification";
+
+import "../styles/TopLeft.css";
 
 export default function App() {
-
     return (
         <div className="container-fluid" style={{ height: '100vh' }}>
             <div className="row " style={{ height: '100%' }}>
 
                 {/* Logo/Sidebar Column */}
-                <div className="col-2 border border-danger">
+                <div className="col-2">
 
                     {/* Logo Row */}
-                    <div className="row no-gutters border border-danger" style={{ height: '20%' }}>
-
+                    <div className="row no-gutters" style={{ height: '20%' }}>
+                        <img src="../assets/pictures/notion-logo.svg"
+                             id="logo"
+                             className="border border-danger"
+                             alt="Notion logo"/>
                     </div>
 
                     {/* Sidebar Row */}
@@ -24,7 +27,7 @@ export default function App() {
                 </div>
 
                 {/* Content Column */}
-                <div className="col-10 border border-danger" style={{ backgroundColor: '#FFFFFF'}}>
+                <div className="col-10" style={{ backgroundColor: '#FFFFFF'}}>
                     <NotesTable />
                 </div>
             </div>
