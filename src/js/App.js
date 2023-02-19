@@ -16,7 +16,6 @@ export default function App() {
                     <div className="row no-gutters" style={{ height: '20%' }}>
                         <img src="../assets/pictures/notion-logo.svg"
                              id="logo"
-                             className="border border-danger"
                              alt="Notion logo"/>
                     </div>
 
