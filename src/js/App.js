@@ -45,7 +45,9 @@ export default function App() {
                                                                                                     backgroundColor:'#FFFFFF'}}>
                         <div className="title-container d-flex align-items-center">
                             <h1 className="title" style={{color:'#1E1F54',fontSize:'52',fontFamily:'Poppins-SemiBold'}}>Toutes les Notes</h1>
+                            <button className="add_note_button" style={{backgroundColor:'#0C2480', color:'#fff',borderRadius:'8px', padding:'10px',fontSize:'32',fontFamily:'Poppins-SemiBold'}}>Ajouter note</button>
                         </div>
+
                     </div>
 
 

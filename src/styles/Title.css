@@ -1,9 +1,25 @@
 .title-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 80%;
     height: 100%;
     background-color: #FFFFFF;
 }
 
-.title{
+.title {
+    color: #1E1F54;
+    font-size: 46px;
+    font-family: 'Poppins-SemiBold', serif;
+    margin-right: auto;
+}
 
+.add_note_button {
+    background-color: #0C2480;
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 16px;
+    font-family: 'Poppins-SemiBold', serif;
+    margin-left: auto;
 }
