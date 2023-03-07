@@ -8,6 +8,12 @@ function Sidebar(props) {
         setActiveButton(buttonName);
     };
 
+
+    const handleButtonClick2 = () => {
+        // Déclenche l'événement "change-to-notes-rangées" avec le paramètre "NotesTable"
+        ipcRenderer.send('change-to-notes-rangées', 'Sidebar');
+    };
+
     const renderButton = (buttonName, buttonText) => {
         return (
             <>
@@ -16,10 +22,13 @@ function Sidebar(props) {
                     className={`item list-group-item list-group-item-action ${
                         activeButton === buttonName ? 'active' : ''
                     }`}
-                    onClick={() => handleButtonClick(buttonName)}
+                    onClick={() => {
+                        handleButtonClick(buttonName);
+                        handleButtonClick2();
+                    }}
                 >
                     {activeButton === buttonName && <div className="rectangle"></div>}
-
+                    
                     {buttonText}
                 </a>
             </>

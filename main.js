@@ -1,4 +1,5 @@
 const { BrowserWindow, app } = require('electron');
+const { ipcMain } = require('electron');
 
 function createWindow() {
     app.setName("QuicklyNote")
@@ -23,8 +24,14 @@ function createWindow() {
 
     win.removeMenu()
     // win.webContents.openDevTools()
-    Database.create();
+    // Database.create();
     win.loadFile('./src/views/index.html')
+
+    ipcMain.on('change-to-notes-rangées', (event, component) => {
+        if (component === 'NotesTable') {
+            handleClickButton1();
+        }
+    });
 
 }
 

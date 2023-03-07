@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from "./Sidebar";
 import NotesTable from "./NotesTable";
 
@@ -7,6 +7,15 @@ import "../styles/Title.css";
 import "../styles/Searchbar.css";
 
 export default function App() {
+    const [activeComponent, setActiveComponent] = useState('NotesTable');
+
+    const handleClickButton1 = () => {
+        setActiveComponent('Sidebar');
+    };
+    const handleClickButton2 = () => {
+        setActiveComponent('NotesTables');
+    };
+
     return (
         <div className="container-fluid" style={{ height: '100vh' }}>
             <div className="row " style={{ height: '100%' }}>
@@ -57,7 +66,10 @@ export default function App() {
                          style={{ height: '80%', justifyContent: 'center' }}>
 
                         <div className="content-container">
-                            <NotesTable />
+                            {/*<NotesTable />*/}
+                            {activeComponent === 'NotesTable' && <NotesTable />}
+                            console.
+                            {activeComponent === 'Sidebar' && <Sidebar />}
                         </div>
 
                     </div>
