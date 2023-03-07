@@ -23,6 +23,7 @@ function createWindow() {
 
     win.removeMenu()
     // win.webContents.openDevTools()
+    Database.create();
     win.loadFile('./src/views/index.html')
 
 }
