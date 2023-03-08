@@ -1,4 +1,6 @@
 const { BrowserWindow, app } = require('electron');
+const { ipcMain } = require('electron');
+const { ipcRenderer } = require('electron');
 
 function createWindow() {
     app.setName("QuicklyNote")
@@ -24,7 +26,6 @@ function createWindow() {
     win.removeMenu()
     // win.webContents.openDevTools()
     win.loadFile('./src/views/index.html')
-
 }
 
 app.whenReady().then(createWindow);

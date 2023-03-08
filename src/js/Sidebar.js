@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import '../styles/Sidebar.css';
 
-function Sidebar(props) {
-    const [activeButton, setActiveButton] = useState('');
+function Sidebar({ onActiveButtonChange }) {
+    const [activeButton, setActiveButton] = useState('Notes');
 
     const handleButtonClick = (buttonName) => {
         setActiveButton(buttonName);
+        onActiveButtonChange(buttonName);
     };
 
     const renderButton = (buttonName, buttonText) => {
@@ -16,7 +17,9 @@ function Sidebar(props) {
                     className={`item list-group-item list-group-item-action ${
                         activeButton === buttonName ? 'active' : ''
                     }`}
-                    onClick={() => handleButtonClick(buttonName)}
+                    onClick={() => {
+                        handleButtonClick(buttonName);
+                    }}
                 >
                     {activeButton === buttonName && <div className="rectangle"></div>}
 

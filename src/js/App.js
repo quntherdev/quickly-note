@@ -7,9 +7,15 @@ import "../styles/Title.css";
 import "../styles/Searchbar.css";
 
 export default function App() {
+    const [activeButton, setActiveButton] = useState('Notes');
+
+    const handleActiveButtonChange = (buttonName) => {
+        setActiveButton(buttonName);
+    };
+
     return (
         <div className="container-fluid" style={{ height: '100vh' }}>
-            <div className="row " style={{ height: '100%' }}>
+            <div className="row" style={{ height: '100%' }}>
 
                 {/* Logo/Sidebar Column */}
                 <div className="col-2">
@@ -23,7 +29,7 @@ export default function App() {
 
                     {/* Sidebar Row */}
                     <div className="row no-gutters" style={{ height: '80%' }}>
-                        <Sidebar />
+                        <Sidebar onActiveButtonChange={handleActiveButtonChange}/>
                     </div>
                 </div>
 
@@ -45,7 +51,7 @@ export default function App() {
                                                                                                     backgroundColor:'#FFFFFF'}}>
                         <div className="title-container d-flex align-items-center">
                             <h1 className="title" style={{color:'#1E1F54',fontSize:'52',fontFamily:'Poppins-SemiBold'}}>Toutes les Notes</h1>
-                            <button className="add_note_button" style={{backgroundColor:'#0C2480', color:'#fff',borderRadius:'8px', padding:'10px',fontSize:'32',fontFamily:'Poppins-SemiBold'}}>Ajouter note</button>
+                            <button className="add_note_button">Ajouter note</button>
                         </div>
 
                     </div>
@@ -57,7 +63,11 @@ export default function App() {
                          style={{ height: '80%', justifyContent: 'center' }}>
 
                         <div className="content-container">
-                            <NotesTable />
+                            {activeButton === 'Notes' && <NotesTable />}
+                            {activeButton === 'Notes rangées' && <Sidebar />}
+                            {activeButton === 'Corbeille' && <Sidebar />}
+                            {activeButton === 'A propos' && <Sidebar />}
+                            {activeButton === 'Paramètres' && <Sidebar />}
                         </div>
 
                     </div>
