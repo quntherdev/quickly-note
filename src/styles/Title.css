@@ -14,7 +14,9 @@
 }
 
 .add_note_button {
+    background-color: #0C2480;
     border-color: #0C2480;
+    border-radius: 8px;
     color: #fff;
     padding: 8px;
     font-size: 16px;
