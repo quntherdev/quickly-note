@@ -3,14 +3,27 @@
     height: 100%;
 }
 
-.searchbar-bar{
-    background-color: #E9E1E1;
-    width: 50%;
-    border-radius: 10px;
 
+
+.searchbar-bar{
+    padding: 10px 0px;
+    background-color: #E9E1E1;
+    width: 55%;
+    border-radius: 20px;
 }
 
-.searchbar{
-    padding: 15px 10px;
+.searchbar-bar img, .searchbar-bar p {
+    display: inline-block;
+}
+
+.searchbar-bar img{
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.searchbar-text{
     margin: 0;
+    color: #7886B8;
+    font-size: 16px;
+    font-family: 'Poppins-SemiBold';
 }

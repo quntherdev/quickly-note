@@ -3,22 +3,22 @@ import "../styles/NotesTable.css";
 
 function NotesTable(props) {
     return (
-
-            <table className="notes-table">
+        <div className="scrollable">
+            <table className="table">
                 <thead>
                     <tr>
                         <th className="note">Note</th>
-                        <th>Action</th>
+                        <th className="action">Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <td>Enregistrement 1</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus dictum ultricies. Nam ut eros at nisi vehicula congue eu at ex. Cras gravida consectetur aliquam. Donec massa turpis, ultrices eget mauris eu, rhoncus consequat urna</td>
                         <td>Action 1</td>
                     </tr>
                     <tr>
-                        <td>Enregistrement 2</td>
+                        <td>Cras gravida consectetur aliquam. Donec massa turpis, ultrices eget mauris eu, rhoncus consequat urna.</td>
                         <td>Action 2</td>
                     </tr>
                     <tr>
@@ -42,8 +42,24 @@ function NotesTable(props) {
                         <td>Action 1</td>
                     </tr>
                     <tr>
-                        <td>Enregistrement 2</td>
-                        <td>Action 2</td>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 1</td>
+                        <td>Action 1</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 1</td>
+                        <td>Action 1</td>
                     </tr>
                     <tr>
                         <td>Enregistrement 3</td>
@@ -58,11 +74,12 @@ function NotesTable(props) {
                         <td>Action 3</td>
                     </tr>
                     <tr>
-                        <td>Enregistrement 3</td>
-                        <td>Action 3</td>
+                        <td></td>
+                        <td>Action 1</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
     );
 }
 

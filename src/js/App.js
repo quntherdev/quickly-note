@@ -40,7 +40,8 @@ export default function App() {
                     <div className="row d-flex align-items-center justify-content-center" style={{ height: '10%', backgroundColor:'#FFFFFF'}}>
                         <div className="searchbar-container d-flex align-items-center">
                             <div className="searchbar-bar">
-                                <p className="searchbar" style={{color:'#7886B8',fontSize:'12',fontFamily:'Poppins-SemiBold'}}>Rechercher une note</p>
+                                <img src="../assets/pictures/search.svg" height="28" alt="Search image"/>
+                                <p className="searchbar-text">Rechercher une note</p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +61,7 @@ export default function App() {
 
                     {/* Content Row */}
                     <div className="row align-items-center justify-content-center"
-                         style={{ height: '80%', justifyContent: 'center' }}>
+                         style={{ height: '80%', maxHeight:'80%', justifyContent: 'center' }}>
 
                         <div className="content-container">
                             {activeButton === 'Notes' && <NotesTable />}
