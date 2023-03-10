@@ -16,7 +16,6 @@ export default function App() {
     return (
         <div className="container-fluid" style={{ height: '100vh' }}>
             <div className="row" style={{ height: '100%' }}>
-
                 {/* Logo/Sidebar Column */}
                 <div className="col-2">
 
@@ -34,7 +33,7 @@ export default function App() {
                 </div>
 
                 {/* Content Column */}
-                <div className="col-10" style={{ backgroundColor: '#FFFFFF'}}>
+                <div className="col-10" style={{ backgroundColor: '#FFFFFF', height: '100%' }}>
 
                     {/* Searchbar Row */}
                     <div className="row d-flex align-items-center justify-content-center" style={{ height: '10%', backgroundColor:'#FFFFFF'}}>
