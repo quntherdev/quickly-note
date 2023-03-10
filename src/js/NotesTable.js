@@ -3,7 +3,7 @@ import "../styles/NotesTable.css";
 
 function NotesTable(props) {
     return (
-        <div className="scroll">
+/*        <div className="scroll">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
             when an unknown printer took a galley of type and scrambled it to make a type
@@ -32,9 +32,9 @@ function NotesTable(props) {
             making it look like readable English. Many desktop publishing packages and
             web page editors now use Lorem Ipsum as their default model text, and a
             search for 'lorem ipsum' will uncover many web sites still in their infancy.
-        </div>
+        </div>*/
 
-/*        <div className="scrollable">
+        <div className="scrollable">
             <table className="table">
                 <thead>
                     <tr>
@@ -56,9 +56,49 @@ function NotesTable(props) {
                         <td>Enregistrement 3</td>
                         <td>Action 3</td>
                     </tr>
+                    <tr>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Enregistrement 3</td>
+                        <td>Action 3</td>
+                    </tr>
+                    <tr>
+                        <td>Cras gravida consectetur aliquam. Donec massa turpis, ultrices eget mauris eu, rhoncus consequat urna.</td>
+                        <td>Action 2</td>
+                    </tr>
+                    <tr>
+                        <td>Cras gravida consectetur aliquam. Donec massa turpis, ultrices eget mauris eu, rhoncus consequat urna.</td>
+                        <td>Action 2</td>
+                    </tr>
+                    <tr>
+                        <td>Cras gravida consectetur aliquam. Donec massa turpis, ultrices eget mauris eu, rhoncus consequat urna.</td>
+                        <td>Action 2</td>
+                    </tr>
+                    <tr>
+                        <td>Cras gravida consectetur aliquam. Donec massa turpis, ultrices eget mauris eu, rhoncus consequat urna.</td>
+                        <td>Action 2</td>
+                    </tr>
+                    <tr>
+                        <td>Cras gravida consectetur aliquam. Donec massa turpis, ultrices eget mauris eu, rhoncus consequat urna.</td>
+                        <td>Action 2</td>
+                    </tr>
                 </tbody>
             </table>
-        </div>*/
+        </div>
     );
 }
 
