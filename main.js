@@ -28,7 +28,9 @@ function createWindow() {
     Database.createDatabase();
     win.loadFile('./src/views/index.html')
 
-
+    const db = Database.getInstance();
 }
+
+
 
 app.whenReady().then(createWindow);

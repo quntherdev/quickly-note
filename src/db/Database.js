@@ -1,17 +1,49 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require("path");
 const fs = require('fs');
+const { exec } = require('child_process');
 
 class Database {
-    static base_path = "quicklynote.db"
     static db_path = path.join(__dirname, '../../data', 'quicklynote.db')
-    static sql_path = path.join(__dirname, '../../data', 'test.SQL')
+    static db_path_sql = path.join(__dirname, '../../data', 'mysql_quicklynote.sql')
+
+    static dbConn = Database.connexionAttempt()
+
+    static getInstance(){
+        if(Database.dbConn === null){
+            Database.createDatabase()
+            Database.dbConn = Database.connexionAttempt()
+        }
+
+        // return Database.dbConn;
+
+
+        return new Promise((successCallback, failureCallback) => {
+            if (Database.dbConn) {
+                // resolve(Database.dbConn)
+                successCallback("hihihihihihihi");
+            } else {
+                failureCallback("Erreur lors de la création de la connexion");
+            }
+        });
+    }
+
+    static connexionAttempt(){
+        return new sqlite3.Database(Database.db_path, sqlite3.OPEN_READWRITE,(err) => {
+            if (err) {
+                console.log('Error connecting to the database.')
+            } else {
+                console.log('Connected to the database : ');
+            }
+        })
+    }
+
 
     static createDatabase() {
         try {
             const dbExist = fs.existsSync(Database.db_path)
 
-            const db = new sqlite3.Database(path.join(__dirname,'../../data',Database.base_path),(err) => {
+            const db = new sqlite3.Database(Database.db_path,(err) => {
                 if (err) {
                     console.log('Error connecting to the database.')
                 } else {
@@ -19,24 +51,45 @@ class Database {
                 }
             });
 
+
             if(!dbExist){
-                const sql_filepath = fs.readFileSync(Database.sql_path)
+                const sql_filepath = fs.readFileSync(Database.db_path_sql)
+                const dataArr = sql_filepath.toString().split(");");
 
-                db.exec(sql_filepath, (err) => {
-                    if(err){
-                        console.log("Erreur lors de l'insertion du fichier SQL.")
-                    }else{
-                        console.log("Fichier SQL exécuté avec succès.")
-                    }
-                })
+                // db.serialize ensures that your queries are one after the other depending on which one came first in your `dataArr`
+                db.serialize(() => {
+                    db.run("PRAGMA foreign_keys=OFF;"); // deactive forfeign keys check when importing script
+                    db.run("BEGIN TRANSACTION;");
 
+                    dataArr.forEach(query => {
+                        if (query) {
+                            query += ");";
+
+                            db.run(query, err => {
+                                if (err) throw err;
+                            });
+                        }
+                    });
+
+                    db.run("COMMIT;");
+                });
             }
 
-            db.close()
+            // Close the DB connection
+            db.close(err => {
+                if (err) {
+                    return console.error(err.message);
+                }
+                console.log("Closed the database connection.");
+            });
+
         } catch (e) {
-            console.log("error db")
+            console.log("Error connecting or creating the database.")
         }
     }
+
+
+
 }
 
 module.exports = Database;
