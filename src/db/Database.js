@@ -1,27 +1,42 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require("path");
+const fs = require('fs');
 
-class Database{
-    static db_name = "quicklynote.db";
+class Database {
+    static base_path = "quicklynote.db"
+    static db_path = path.join(__dirname, '../../data', 'quicklynote.db')
+    static sql_path = path.join(__dirname, '../../data', 'test.SQL')
 
-/*    constructor(username,password) {
-        this.username = username
-        this.password = password
-    }*/
+    static createDatabase() {
+        try {
+            const dbExist = fs.existsSync(Database.db_path)
 
-    static create() {
-        // const db = new sqlite3.Database('./quicklynote.db');
+            const db = new sqlite3.Database(path.join(__dirname,'../../data',Database.base_path),(err) => {
+                if (err) {
+                    console.log('Error connecting to the database.')
+                } else {
+                    console.log('Connected to the database : ');
+                }
+            });
 
-        const db = new sqlite3.Database(path.join(__dirname, 'data', Database.db_name), (err) => {
-            if (err) {
-                console.error(err.message);
-            } else {
-                console.log('Connected to the mydb database.');
-                // Création de la table "notes" si elle n'existe pas déjà
-                db.run('CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT)');
+            if(!dbExist){
+                const sql_filepath = fs.readFileSync(Database.sql_path)
+
+                db.exec(sql_filepath, (err) => {
+                    if(err){
+                        console.log("Erreur lors de l'insertion du fichier SQL.")
+                    }else{
+                        console.log("Fichier SQL exécuté avec succès.")
+                    }
+                })
+
             }
-        });
 
+            db.close()
+        } catch (e) {
+            console.log("error db")
+        }
     }
-
 }
+
+module.exports = Database;

@@ -1,6 +1,6 @@
 const { BrowserWindow, app } = require('electron');
 const { ipcMain } = require('electron');
-const { Database } = require("./src/db/Database")
+const Database = require('./src/db/Database');
 
 function createWindow() {
     app.setName("QuicklyNote")
@@ -24,8 +24,8 @@ function createWindow() {
     })
 
     win.removeMenu()
-    // win.webContents.openDevTools()
-    // Database.create();
+    win.webContents.openDevTools()
+    Database.createDatabase();
     win.loadFile('./src/views/index.html')
 
 
