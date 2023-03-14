@@ -12,6 +12,7 @@ thead {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: #e9fcff;
+    position: sticky; top: 0;
     height: 50px;
 }
 
