@@ -14,8 +14,8 @@ export default function App() {
     };
 
     return (
-        <div className="container-fluid" style={{ height: '100vh' }}>
-            <div className="row" style={{ height: '100%' }}>
+        <div className="container-fluid" style={{ height: '100vh', maxHeight:'100vh' }}>
+            <div className="row" style={{ height: '100%', maxHeight:'100%' }}>
                 {/* Logo/Sidebar Column */}
                 <div className="col-2">
 
@@ -27,13 +27,13 @@ export default function App() {
                     </div>
 
                     {/* Sidebar Row */}
-                    <div className="row no-gutters" style={{ height: '80%' }}>
+                    <div className="row no-gutters" style={{ height: '80%', maxHeight:'80%' }}>
                         <Sidebar onActiveButtonChange={handleActiveButtonChange}/>
                     </div>
                 </div>
 
                 {/* Content Column */}
-                <div className="col-10" style={{ backgroundColor: '#FFFFFF', height: '100%' }}>
+                <div className="col-10" style={{ backgroundColor: '#FFFFFF', height: '100%', maxHeight:'100%' }}>
 
                     {/* Searchbar Row */}
                     <div className="row d-flex align-items-center justify-content-center" style={{ height: '10%', backgroundColor:'#FFFFFF'}}>
@@ -62,7 +62,7 @@ export default function App() {
                     <div className="row align-items-center justify-content-center"
                          style={{ height: '80%', maxHeight:'80%', justifyContent: 'center' }}>
 
-                        <div className="content-container">
+                        <div className="content-container" style={{ height: '100%', maxHeight:'100%'}}>
                             {activeButton === 'Notes' && <NotesTable />}
                             {activeButton === 'Notes rangées' && <Sidebar />}
                             {activeButton === 'Corbeille' && <Sidebar />}
