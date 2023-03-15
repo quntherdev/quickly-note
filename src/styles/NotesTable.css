@@ -8,6 +8,11 @@
     overflow-x: hidden;
 }
 
+table {
+    border-collapse:separate;
+    border-spacing:5em;
+    /*https://stackoverflow.com/questions/45342816/how-to-add-space-between-two-rows-with-border-in-bootstrap-table*/
+}
 
 thead {
     position: sticky; top: 0;

@@ -24,13 +24,13 @@ function createWindow() {
         }
     })
 
-    const db = Database.getInstance();
+/*    const db = Database.getInstance();
     b.then((successCallback) => {
         console.log(successCallback)
-    })
+    })*/
 
     win.removeMenu()
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
     win.loadFile('./src/views/index.html')
 
 }

@@ -5,7 +5,7 @@ import "../styles/NotesTable.css";
 function NotesTable(props) {
     return (
         <div className="scrollable" style={{ height: '90%', maxHeight:'90%'}}>
-            <table className="table" style={{ height: '90%', maxHeight:'90%'}}>
+            <table className="table table-bordered" style={{ height: '90%', maxHeight:'90%'}}>
                 <thead>
                 <tr>
                     <th className="note">Note</th>
