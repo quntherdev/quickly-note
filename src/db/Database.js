@@ -15,8 +15,13 @@ class Database {
             Database.dbConn = Database.connexionAttempt()
         }
 
+
         return new Promise((successCallback, failureCallback) => {
             if (Database.dbConn) {
+
+                console.log(successReturn.all(`SELECT * FROM NOTES`),(err,info) =>{
+                    console.log(err,info)
+                })
                 successCallback(Database.dbConn);
             } else {
                 failureCallback("Erreur lors de la création de la connexion");

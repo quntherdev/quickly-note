@@ -24,10 +24,13 @@ function createWindow() {
         }
     })
 
-/*    const db = Database.getInstance();
-    b.then((successCallback) => {
-        console.log(successCallback)
-    })*/
+    const db = Database.getInstance();
+
+    db.then((successReturn) => {
+        console.log(successReturn)
+    }).catch((failureReturn) => {
+        console.log(failureReturn)
+    })
 
     win.removeMenu()
     // win.webContents.openDevTools()
