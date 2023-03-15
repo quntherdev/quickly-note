@@ -8,11 +8,13 @@
     overflow-x: hidden;
 }
 
+
 thead {
+    position: sticky; top: 0;
+
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: #e9fcff;
-    position: sticky; top: 0;
     height: 50px;
 }
 
@@ -21,23 +23,16 @@ table tr {
     width: 100%;
 }
 
-table td {
-    padding: 10px;
-}
-
-
 thead th {
     padding-left: 20px !important;
 }
 
 
-toby tr{
-    margin-bottom: 50px !important;
-}
 
 .note{
-    width: 70%;
+    width: 80%;
 }
 .action{
-    width: 30%;
+    width: 20%;
 }
+

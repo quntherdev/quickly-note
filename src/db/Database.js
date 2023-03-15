@@ -15,13 +15,9 @@ class Database {
             Database.dbConn = Database.connexionAttempt()
         }
 
-        // return Database.dbConn;
-
-
         return new Promise((successCallback, failureCallback) => {
             if (Database.dbConn) {
-                // resolve(Database.dbConn)
-                successCallback("hihihihihihihi");
+                successCallback(Database.dbConn);
             } else {
                 failureCallback("Erreur lors de la création de la connexion");
             }
