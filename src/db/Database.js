@@ -1,33 +1,30 @@
 const sqlite3 = require('sqlite3').verbose();
-const path = require("path");
+const path = require('path');
 const fs = require('fs');
-const { exec } = require('child_process');
 
 class Database {
     static db_path = path.join(__dirname, '../../data', 'quicklynote.db')
     static db_path_sql = path.join(__dirname, '../../data', 'mysql_quicklynote.sql')
 
-    static dbConn = Database.connexionAttempt()
+    static dbConn = null
 
-    static getInstance(){
-        if(Database.dbConn === null){
-            Database.createDatabase()
-            Database.dbConn = Database.connexionAttempt()
+    static setupBase(){
+        if (Database.dbConn === null) {
+            Database.createDatabase(); // create base and tables
+            Database.dbConn = Database.connexionAttempt(); // get connection instance
         }
+    }
 
-
-        return new Promise((successCallback, failureCallback) => {
+    static async getInstance() {
+        return await new Promise((successCallback, failureCallback) => {
             if (Database.dbConn) {
-
-                console.log(successReturn.all(`SELECT * FROM NOTES`),(err,info) =>{
-                    console.log(err,info)
-                })
                 successCallback(Database.dbConn);
             } else {
-                failureCallback("Erreur lors de la création de la connexion");
+                failureCallback("Erreur lors de la connexion à la base de données.");
             }
         });
     }
+
 
     static connexionAttempt(){
         return new sqlite3.Database(Database.db_path, sqlite3.OPEN_READWRITE,(err) => {
@@ -90,7 +87,14 @@ class Database {
     }
 
 
+    static deleteNote(noteId){
+
+    }
+
+    static deleteGroup(groupId){
+
+    }
 
 }
 
-module.exports = Database;
+module.exports = Database

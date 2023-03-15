@@ -1,4 +1,4 @@
-class  NoteComponent {
+export default class NoteComponent {
 
     constructor(componentID) {
         if (this.constructor === NoteComponent) {
@@ -7,11 +7,15 @@ class  NoteComponent {
         this.componentID = componentID;
     }
 
-    getParent();
+    static getComponent(componentId){}
+    static removeComponent(component){}
+    remove(){}
+    getParent(){}
     getID(){
         return this.componentID
     }
     setID(id){
         this.componentID = id
     }
+
 }

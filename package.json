@@ -31,12 +31,14 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "path": "^0.12.7",
     "pg": "^8.9.0",
-    "pgtools": "^1.0.0",
+    "pgtools": "^0.1.1",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
-    "sqlite3": "^5.1.4"
+    "sqlite3": "^5.1.6",
+    "util": "^0.12.5"
   }
 }

@@ -7,6 +7,9 @@ module.exports = {
         path: path.resolve(__dirname, "app/dist"),
         filename: "bundle.js"
     },
+    externals: {
+        sqlite3: 'commonjs sqlite3',
+    },
     module: {
         rules: [
             // loads .js/jsx/json files
