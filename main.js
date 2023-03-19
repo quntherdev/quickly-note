@@ -1,8 +1,12 @@
-const { BrowserWindow, app } = require('electron');
-const { ipcMain } = require('electron');
-const { ipcRenderer } = require('electron');
-const {list} = require("postcss");
+const { BrowserWindow, app, ipcMain,globalShortcut } = require('electron');
 const Database = require("./src/db/Database");
+// const clipboardy = require('clipboardy');
+
+
+/*async function readClipboard() {
+    const clipboardy = await import('clipboardy');
+    return clipboardy.readSync();
+}*/
 
 function createWindow() {
     Database.setupBase()
@@ -29,10 +33,19 @@ function createWindow() {
     win.removeMenu()
     win.webContents.openDevTools()
     win.loadFile('./src/views/index.html')
+
+    // Enregistrez le raccourci clavier global
+    const ret = globalShortcut.register('CommandOrControl+C+X', async () => {
+        console.log('CommandOrControl+C+X is pressed');
+        // console.log('Clipboard content: ', await readClipboard());
+    });
+
+    if (!ret) {
+        console.error('Failed to register global shortcut');
+    }
 }
 
 app.whenReady().then(createWindow);
-
 
 ipcMain.on('getAllNotes', (event, arg) => {
     // const notes = Note.getAll()
@@ -80,10 +93,4 @@ async function instanciateDatabase(){
     }).catch((err) => {
         console.error(err);
     });
-}
-
-
-function createEntities(dbConn){
-    const notes = {};
-    const notesGroups = {};
 }

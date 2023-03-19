@@ -9,7 +9,21 @@
     "watch": "webpack --config webpack.common.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "iohook": {
+    "targets": [
+      "node-113",
+      "electron-113"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64",
+      "ia32"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -30,7 +44,11 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "electron": "^23.1.2",
     "bootstrap": "^5.2.3",
+    "clipboardy": "^3.0.0",
+    "iohook": "^0.9.3",
+    "node-abi": "^3.33.0",
     "path": "^0.12.7",
     "pg": "^8.9.0",
     "pgtools": "^0.1.1",
