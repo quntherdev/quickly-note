@@ -1,6 +1,35 @@
 const { BrowserWindow, app, ipcMain,globalShortcut } = require('electron');
 const Database = require("./src/db/Database");
+const listener = require("./src/models/addNoteListener");
+
+// https://github.com/wilix-team/iohook/releases
+// je veux installer iohook pour node-113 et electron-113 en version 64 bits, avec npm. comment faire ?
+
 // const clipboardy = require('clipboardy');
+
+
+/*PS C:\Users\user\Desktop\Electron\quickly-note> node -v
+v18.12.1
+PS C:\Users\user\Desktop\Electron\quickly-note> electron -v
+v23.1.4
+
+c'est leur version abi qui est electron-113 et node-113*/
+
+/*  "iohook": {
+    "targets": [
+      "node-113",
+      "electron-113"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64",
+      "ia32"
+    ]
+  },*/
 
 
 /*async function readClipboard() {

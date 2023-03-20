@@ -1,4 +1,3 @@
-/*
 const iohook = require('iohook');
 const clipboardy = require('clipboardy');
 
@@ -28,4 +27,3 @@ iohook.on('keyup', (event) => {
 
 // Démarrer l'écoute des événements
 iohook.start();
-*/
