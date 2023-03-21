@@ -1,34 +1,24 @@
-const iohook = require('iohook');
-let clipboardy;
-import('clipboardy').then(module => {
-    clipboardy = module.default;
-});
+const { parentPort } = require('worker_threads');
+const { uIOhook, UiohookKey } = require('uiohook-napi');
 
-let isCtrlPressed = false;
-let isCPressed = false;
-let isXPressed = false;
+uIOhook.on('keydown', (e) => {
+    if (e.keycode === UiohookKey.Q) {
+        console.log('Hello!');
+    }
 
-iohook.on('keydown', (event) => {
-    // Identifier les touches enfoncées (Ctrl, C et X)
-    if (event.keycode === 29) isCtrlPressed = true;
-    if (event.keycode === 46) isCPressed = true;
-    if (event.keycode === 45) isXPressed = true;
-
-    if (isCtrlPressed && isCPressed && isXPressed) {
-        const clipboardContent = clipboardy.readSync();
-        console.log('Contenu du presse-papier :', clipboardContent);
+    if (e.keycode === UiohookKey.Escape) {
+        process.exit(0);
     }
 });
 
-iohook.on('keyup', (event) => {
-    if (event.keycode === 29) isCtrlPressed = false;
-    if (event.keycode === 46) isCPressed = false;
-    if (event.keycode === 45) isXPressed = false;
+uIOhook.start();
+
+parentPort.on('message', (message) => {
+    if (message === 'stop') {
+        uIOhook.stop();
+    }
 });
 
-iohook.start();
-
 module.exports = {
-    iohook,
-    clipboardy,
+    uIOhook,
 };

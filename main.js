@@ -1,18 +1,13 @@
-const { BrowserWindow, app, ipcMain,globalShortcut } = require('electron');
+const { BrowserWindow, app, ipcMain, globalShortcut, remote } = require('electron');
 const Database = require("./src/db/Database");
-const { listener, clipboardy } = require('./src/models/addNoteListener');
+const path = require("path");
 
-// https://github.com/octalmage/robotjs/issues/466#issuecomment-703656731
-
-// ./node_modules/.bin/electron-rebuild --module-dir=node_modules/iohook
-
-
-/*async function readClipboard() {
-    const clipboardy = await import('clipboardy');
-    return clipboardy.readSync();
-}*/
+const { Worker } = require('worker_threads');
+const uiohookWorkerPath = path.join(__dirname, 'src/models/addNoteListener.js');
+const uiohookWorker = new Worker(uiohookWorkerPath);
 
 function createWindow() {
+
     Database.setupBase()
     app.setName("QuicklyNote")
 
@@ -48,6 +43,7 @@ function createWindow() {
         console.error('Failed to register global shortcut');
     }
 }
+
 
 app.whenReady().then(createWindow);
 
