@@ -7,19 +7,22 @@
     "start": "electron .",
     "compile": "nodemon --exec npm run watch",
     "watch": "webpack --config webpack.common.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "electron-builder install-app-deps"
   },
   "iohook": {
     "targets": [
-      "node-113",
-      "electron-113"
+      "node-72",
+      "electron-85"
     ],
     "platforms": [
       "win32",
-      "darwin"
+      "darwin",
+      "linux"
     ],
     "arches": [
-      "x64"
+      "x64",
+      "ia32"
     ]
   },
   "author": "",
@@ -32,6 +35,7 @@
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "electron": "^23.1.2",
+    "electron-rebuild": "^3.2.9",
     "nodemon": "^2.0.20",
     "postcss-loader": "^7.0.2",
     "sass": "^1.58.1",
@@ -42,11 +46,13 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "iohook": "^0.6.5",
     "bootstrap": "^5.2.3",
     "clipboardy": "^3.0.0",
     "electron": "^23.1.2",
-    "iohook": "^0.9.3",
+    "electron-rebuild": "^2.2.0",
     "node-abi": "^3.33.0",
+    "node-gyp": "^9.3.1",
     "path": "^0.12.7",
     "pg": "^8.9.0",
     "pgtools": "^0.1.1",
