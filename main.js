@@ -1,4 +1,4 @@
-const { BrowserWindow, app, ipcMain, globalShortcut, remote } = require('electron');
+const { BrowserWindow, app, ipcMain, globalShortcut, clipboard } = require('electron');
 const Database = require("./src/db/Database");
 const path = require("path");
 
@@ -36,7 +36,15 @@ function createWindow() {
     // Enregistrez le raccourci clavier global
     const ret = globalShortcut.register('CommandOrControl+C+X', async () => {
         console.log('CommandOrControl+C+X is pressed');
-        // console.log('Clipboard content: ', await readClipboard());
+        console.log('Clipboard content: '+clipboard.readText());
+
+        const notes = ["1","2"]
+        win.webContents.send('getAllNotesResult',notes)
+
+        if(win.isMinimized()){
+            win.restore()
+        }
+        win.focus()
     });
 
     if (!ret) {
@@ -49,7 +57,7 @@ app.whenReady().then(createWindow);
 
 ipcMain.on('getAllNotes', (event, arg) => {
     // const notes = Note.getAll()
-    const notes = ["a","b","c"]
+    const notes = ["a","b"]
     // Envoi le résultat à la fenêtre de rendu
     event.reply('getAllNotesResult', notes)
 })
