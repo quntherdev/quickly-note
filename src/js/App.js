@@ -5,6 +5,7 @@ import NotesTable from "./NotesTable";
 import "../styles/TopLeft.css";
 import "../styles/Title.css";
 import "../styles/Searchbar.css";
+import AvailableLater from "./AvailableLater";
 
 export default function App() {
     const [activeButton, setActiveButton] = useState('Notes');
@@ -64,10 +65,10 @@ export default function App() {
 
                         <div className="content-container" style={{ height: '100%', maxHeight:'100%'}}>
                             {activeButton === 'Notes' && <NotesTable />}
-                            {activeButton === 'Notes rangées' && <Sidebar />}
-                            {activeButton === 'Corbeille' && <Sidebar />}
-                            {activeButton === 'A propos' && <Sidebar />}
-                            {activeButton === 'Paramètres' && <Sidebar />}
+                            {activeButton === 'Notes rangées' && <AvailableLater />}
+                            {activeButton === 'Corbeille' && <AvailableLater />}
+                            {activeButton === 'A propos' && <AvailableLater />}
+                            {activeButton === 'Paramètres' && <AvailableLater />}
                         </div>
 
                     </div>
