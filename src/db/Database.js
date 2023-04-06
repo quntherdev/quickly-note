@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
+const Note = require("../models/NotesComponents/Note");
 
 class Database {
     static db_path = path.join(__dirname, '../../data', 'quicklynote.db')
@@ -45,7 +46,8 @@ class Database {
                 if (err) {
                     console.log('Error connecting to the database.')
                 } else {
-                    console.log('Connected to the database : ');
+                    console.log('Database created/connected.');
+                    Database.loadNotes()
                 }
             });
 
@@ -86,6 +88,46 @@ class Database {
         }
     }
 
+    /*
+    Load the existing notes from the database to Note.notesId
+     */
+    static loadNotes(){
+        const db = Database.getInstance();
+
+        db.then(async (connection) => {
+            try {
+                const rows = await new Promise((resolve, reject) => {
+                    connection.all('SELECT * FROM notes ORDER BY notes_id DESC', (err, rows) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(rows);
+                        }
+                    });
+                });
+
+                for(let note of rows){
+/*                    console.log("------------");
+                    console.log(note["NOTES_ID"]);
+                    console.log(note["GRP_ID"]);
+                    console.log(note["NOTES_LABEL"]);
+                    console.log("------------");*/
+
+                    const n = new Note(note["NOTES_ID"],
+                        note["GRP_ID"],
+                        note["NOTES_LABEL"])
+                    Note.notes.push(n)
+                    Note.notesId.push(n.note_id)
+                }
+
+            } catch (err) {
+                console.error('Error selecting records:', err);
+            }
+
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
 
     static deleteNote(noteId){
 

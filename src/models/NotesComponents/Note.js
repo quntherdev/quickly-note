@@ -1,44 +1,50 @@
-import NoteComponent from "./NoteComponent"
-import Database from "./../../db/Database";
+const NoteComponent = require("./NoteComponent")
 
 class Note extends NoteComponent {
+    static notes = []
     static notesId = []
 
     static getAll(){
-        return ["note1","note2","note3"]
+        return Note.notes.map(note => note.message)
     }
 
     static getComponent(noteId){
-        if(Note.notesId.includes(noteId)) return Note.notesId.indexOf(noteId)
+        if(Note.notesId.includes(noteId)){
+/*            Note.notes.forEach(note => {
+                if(note.id===noteId) return note
+            })*/
+            return Note.notes[noteId.indexOf(noteId)]
+        }
         return false
     }
 
-    static removeComponent(noteId){
+/*    static removeComponent(noteId){
         Database.deleteNote(noteId)
         if(Note.notesId.includes(noteId)) Note.notesId.splice(Note.notesId.indexOf(noteId),1)
-    }
+    }*/
 
-
-
-    constructor(message, parent) {
+    constructor(note_id, grp_id, message) {
         super();
+        this.note_id = note_id
+        this.groupe_id = grp_id
         this.message = message;
-        this.parent = parent;
+        // this.parent = parent;
     }
 
     remove(){
-        if(parent !== null){
+/*        if(parent !== null){
             this.parent.removeNote(this)
-        }
+        }*/
+        // this.parent.removeNote(this)
     }
 
-    getParent() {
+/*    getParent() {
         return this.parent;
-    }
+    }*/
 
     getMessage() {
         return this.message;
     }
 }
 
-export default Note;
+module.exports = Note;

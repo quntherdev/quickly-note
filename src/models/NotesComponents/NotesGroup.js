@@ -38,7 +38,7 @@ class NotesGroup extends NoteComponent {
     removeNote(_note: Note){
         if(this.children.includes(_note)){
             // const note = this.children.filter((el) => typeof el === Note && el.getID()===note.getID());
-            Note.removeNote(_note.getID())
+            Database.removeNote(_note.getID())
             this.children.slice(this.children.indexOf(_note.getID(),1))
         }else{
             return false
