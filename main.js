@@ -4,6 +4,7 @@ const path = require("path");
 
 const { Worker } = require('worker_threads');
 const Note = require("./src/models/NotesComponents/Note");
+const Notes = require("./src/models/NotesComponents/Note");
 const uiohookWorkerPath = path.join(__dirname, 'src/models/addNoteListener.js');
 const uiohookWorker = new Worker(uiohookWorkerPath);
 
@@ -57,9 +58,15 @@ function createWindow() {
 
 app.whenReady().then(createWindow);
 
-ipcMain.on('getAllNotes', (event, arg) => {
+ipcMain.on('addNote',(event,args)=>{
+    Notes.notes.push(args)
     const notes = Note.getAll()
-    // const notes = ["a","b","c","d","e","f","g","i","j","a","b","c","d","e","f","g","i","j"]
-    // Envoi le résultat à la fenêtre de rendu
-    event.reply('getAllNotesResult', notes)
+
+    event.sender.send('getAllNotesAnswer',notes)
+})
+
+ipcMain.on('getAllNotesRequest', (event, arg) => {
+    const notes = Note.getAll()
+
+    event.reply('getAllNotesAnswer', notes)
 })

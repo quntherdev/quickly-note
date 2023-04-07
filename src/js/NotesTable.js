@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import "../styles/NotesTable.css";
 const { ipcRenderer } = require('electron');
 
@@ -6,11 +6,10 @@ function NotesTable(props) {
     const [notes, setNotes] = useState([])
 
     useEffect(() => {
-        ipcRenderer.send('getAllNotes')
-        ipcRenderer.on('getAllNotesResult', (event, result) => setNotes(result) )
-        return () => {ipcRenderer.removeAllListeners('getAllNotesResult')}
+        ipcRenderer.send('getAllNotesRequest')
+        ipcRenderer.on('getAllNotesAnswer', (event, result) => setNotes(result) )
+        return () => {ipcRenderer.removeAllListeners('getAllNotesAnswer')}
     }, [])
-
 
     return (
         <div className="scrollable" style={{ height: '90%', maxHeight:'90%'}}>
@@ -23,11 +22,13 @@ function NotesTable(props) {
                 </thead>
 
                 <tbody>
-                    {notes.map((item,index) =>
+                    {
+                        notes.map((item,index) =>
                         <tr key={index}>
                             <td>{item}</td>
                             <td>Editer</td>
-                        </tr>) }
+                        </tr>)
+                    }
                 </tbody>
             </table>
         </div>

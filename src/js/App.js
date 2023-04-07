@@ -7,12 +7,20 @@ import "../styles/Title.css";
 import "../styles/Searchbar.css";
 import AvailableLater from "./AvailableLater";
 
+import { useCallback } from 'react';
+import Note from "../models/NotesComponents/Note";
+const { ipcRenderer } = require('electron')
+
 export default function App() {
     const [activeButton, setActiveButton] = useState('Notes');
 
     const handleActiveButtonChange = (buttonName) => {
         setActiveButton(buttonName);
     };
+
+    const addNote = useCallback(() => {
+        ipcRenderer.send("addNote", new Note(8,2,"new_note_hardcoded"))
+    }, [])
 
     return (
         <div className="container-fluid" style={{ height: '100vh', maxHeight:'100vh' }}>
@@ -52,7 +60,7 @@ export default function App() {
                                                                                                     backgroundColor:'#FFFFFF'}}>
                         <div className="title-container d-flex align-items-center">
                             <h1 className="title" style={{color:'#1E1F54',fontSize:'52',fontFamily:'Poppins-SemiBold'}}>Toutes les Notes</h1>
-                            <button className="add_note_button">Ajouter note</button>
+                            <button className="add_note_button" onClick={addNote}>Ajouter note</button>
                         </div>
 
                     </div>
