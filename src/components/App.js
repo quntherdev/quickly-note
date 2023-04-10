@@ -18,9 +18,9 @@ export default function App() {
         setActiveButton(buttonName);
     };
 
-    const addNote = useCallback(() => {
+    const addNote = () => {
         ipcRenderer.send("addNote", new Note(8,2,"new_note_hardcoded"))
-    }, [])
+    }
 
     return (
         <div className="container-fluid" style={{ height: '100vh', maxHeight:'100vh' }}>

@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/js/index.js',
+    entry: './src/components/index.js',
     devtool: 'inline-source-map',
     target: 'electron-renderer',
     module: {

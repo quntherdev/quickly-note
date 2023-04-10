@@ -1,13 +1,18 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import "../styles/NotesTable.css";
+
 const { ipcRenderer } = require('electron');
 
 function NotesTable(props) {
     const [notes, setNotes] = useState([])
 
+    // first loading of the data
     useEffect(() => {
         ipcRenderer.send('getAllNotesRequest')
-        ipcRenderer.on('getAllNotesAnswer', (event, result) => setNotes(result) )
+        ipcRenderer.on('getAllNotesAnswer', (event, result) =>{
+            console.log("ça marche khoya")
+            setNotes(result)
+        })
         return () => {ipcRenderer.removeAllListeners('getAllNotesAnswer')}
     }, [])
 

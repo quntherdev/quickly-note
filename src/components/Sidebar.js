@@ -9,12 +9,6 @@ function Sidebar({ onActiveButtonChange }) {
         onActiveButtonChange(buttonName);
     };
 
-
-    const handleButtonClick2 = () => {
-        // Déclenche l'événement "change-to-notes-rangées" avec le paramètre "NotesTable"
-        ipcRenderer.send('change-to-notes-rangées', 'Sidebar');
-    };
-
     const renderButton = (buttonName, buttonText) => {
         return (
             <>

@@ -116,8 +116,8 @@ class Database {
                     const n = new Note(note["NOTES_ID"],
                         note["GRP_ID"],
                         note["NOTES_LABEL"])
-                    Note.notes.push(n)
-                    Note.notesId.push(n.note_id)
+/*                    Note.notes.push(n)
+                    Note.notesId.push(n.note_id)*/
                 }
 
             } catch (err) {
