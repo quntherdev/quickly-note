@@ -5,6 +5,44 @@ class NoteDAO{
 
     }
 
+    async getAll() {
+        try {
+            const connection = await Database.getInstance();
+            const rows = await new Promise((resolve, reject) => {
+                connection.all('SELECT * FROM notes ORDER BY notes_id DESC', (err, rows) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(rows);
+                    }
+                });
+            });
+
+            return rows;
+        } catch (err) {
+            console.log("error to retrieve all notes: ", err);
+        }
+    }
+
+    async getNoteByID(noteID) {
+        try {
+            const connection = await Database.getInstance();
+            const rows = await new Promise((resolve, reject) => {
+                connection.get('SELECT * FROM notes WHERE notes_id=?', [noteID], (err, rows) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(rows);
+                    }
+                });
+            });
+
+            return rows;
+        } catch (err) {
+            console.log("error to retrieve note by id : ", err);
+        }
+    }
+
     insert(note){
         let {note_id,grp_id,message} = note
         grp_id = 2
@@ -48,11 +86,14 @@ class NoteDAO{
             })
     }
 
-    async getAll() {
+
+
+    async deleteByID(noteID){
         try {
             const connection = await Database.getInstance();
-            const rows = await new Promise((resolve, reject) => {
-                connection.all('SELECT * FROM notes ORDER BY notes_id DESC', (err, rows) => {
+
+            await new Promise((resolve, reject) => {
+                connection.get('DELETE FROM notes WHERE notes_id=?', [noteID], (err, rows) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -60,10 +101,8 @@ class NoteDAO{
                     }
                 });
             });
-
-            return rows;
         } catch (err) {
-            console.log("error to retrieve all notes: ", err);
+            console.log("error to delete note : ", err);
         }
     }
 

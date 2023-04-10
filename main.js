@@ -55,7 +55,6 @@ function createWindow() {
     }
 }
 
-
 function createModalWindow() {
     modalWindow = new BrowserWindow({
         width: 600,
@@ -73,7 +72,6 @@ function createModalWindow() {
     });
 
     modalWindow.loadFile('./src/pages/AddNote.html');
-    // modalWindow.webContents.openDevTools();
 
     modalWindow.once('ready-to-show', () => {
         modalWindow.show();
@@ -101,12 +99,25 @@ ipcMain.on('modalTextSubmit', async (event, text) => {
     const rows = await noteDAO.getAll();
 
     const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
-    notes.forEach(r => console.log(r))
+/*    notes.forEach(r => console.log(r))
 
-    const notes_message = notes.map(note => note.message)
+    const notes_message = notes.map(note => note.message)*/
 
-    win.webContents.send('getAllNotesAnswer', notes_message)
+    win.webContents.send('getAllNotesAnswer', notes)
     modalWindow.close();
+});
+
+
+
+ipcMain.on('deleteNote', async (event, noteID) => {
+    console.log('Delete note :', noteID);
+    await noteDAO.deleteByID(noteID);
+
+    const rows = await noteDAO.getAll();
+
+    const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
+
+    win.webContents.send('getAllNotesAnswer', notes)
 });
 
 ipcMain.on('modalClose', () => {
@@ -121,9 +132,7 @@ ipcMain.on('getAllNotesRequest', async(event, arg) => {
     const rows = await noteDAO.getAll();
 
     const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
-    const notes_message = notes.map(note => note.message)
+    // const notes_message = notes.map(note => note.message)
 
-    // notes.forEach(r => console.log(r))
-
-    event.reply('getAllNotesAnswer', notes_message)
+    event.reply('getAllNotesAnswer', notes)
 })
