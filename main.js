@@ -1,14 +1,7 @@
-const { BrowserWindow, app, ipcMain, globalShortcut, clipboard, dialog } = require('electron');
+const { BrowserWindow, app, ipcMain, globalShortcut, clipboard } = require('electron');
 const Database = require("./src/db/Database");
-const path = require("path");
 const NoteDAO = require('./src/db/NoteDAO');
-
-const { Worker } = require('worker_threads');
 const Note = require("./src/models/NotesComponents/Note");
-const Notes = require("./src/models/NotesComponents/Note");
-const uiohookWorkerPath = path.join(__dirname, 'src/models/addNoteListener.js');
-const uiohookWorker = new Worker(uiohookWorkerPath);
-
 
 const noteDAO = new NoteDAO();
 
@@ -79,6 +72,31 @@ function createModalWindow() {
 }
 
 
+function createEditNoteWindow(note) {
+    editNoteWindow = new BrowserWindow({
+        width: 600,
+        height: 200,
+        webPreferences: {
+            nodeIntegration: true,
+            worldSafeExecuteJavaScript: true,
+            contextIsolation: false
+        },
+        frame: false,
+        titleBarStyle: "hidden",
+        parent: win,
+        modal: true,
+        show: false
+    });
+
+    editNoteWindow.loadFile('./src/pages/EditNote.html');
+
+    editNoteWindow.once('ready-to-show', () => {
+        editNoteWindow.show();
+        editNoteWindow.webContents.send("editNoteInfos", note)
+    });
+}
+
+
 
 app.whenReady().then(createWindow);
 
@@ -94,45 +112,67 @@ ipcMain.on('modalTextSubmit', async (event, text) => {
     console.log('Message nouvelle note :', text);
 
     let newNote = new Note(null, 1, text);
-    await noteDAO.insert(newNote);
 
+    await noteDAO.insert(newNote);
     const rows = await noteDAO.getAll();
 
     const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
-/*    notes.forEach(r => console.log(r))
-
-    const notes_message = notes.map(note => note.message)*/
 
     win.webContents.send('getAllNotesAnswer', notes)
     modalWindow.close();
 });
 
+ipcMain.on('modalClose', () => {
+    modalWindow.close();
+});
+
+ipcMain.on('closeEditWindow', () => {
+    editNoteWindow.close();
+});
+
+
+
+ipcMain.on('editNoteSubmit', async (event, editedNote) => {
+    editNoteWindow.close();
+
+    const query = await noteDAO.editNoteContent(editedNote.note_id, editedNote.message)
+    const rows = await noteDAO.getAll();
+    const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
+
+    win.webContents.send('getAllNotesAnswer', notes)
+});
+
+ipcMain.on('getAllNotesRequest', async(event, arg) => {
+    const rows = await noteDAO.getAll();
+    const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
+
+    event.reply('getAllNotesAnswer', notes)
+})
+
+
+ipcMain.on('copyNote', async (event, noteMessage) => {
+    console.log('Copied note :', noteMessage);
+    clipboard.writeText(noteMessage);
+});
+
+
+ipcMain.on('editNote', async (event, noteID) => {
+    try {
+        const note = await noteDAO.getNoteByID(noteID);
+        createEditNoteWindow(note);
+    } catch (error) {
+        console.log("Error in retrieving the note by ID:", error);
+    }
+});
 
 
 ipcMain.on('deleteNote', async (event, noteID) => {
     console.log('Delete note :', noteID);
-    await noteDAO.deleteByID(noteID);
 
+    await noteDAO.deleteByID(noteID);
     const rows = await noteDAO.getAll();
 
     const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
 
     win.webContents.send('getAllNotesAnswer', notes)
 });
-
-ipcMain.on('modalClose', () => {
-// Fermer la fenêtre modale
-    console.log("close popup")
-    modalWindow.close();
-});
-
-
-
-ipcMain.on('getAllNotesRequest', async(event, arg) => {
-    const rows = await noteDAO.getAll();
-
-    const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
-    // const notes_message = notes.map(note => note.message)
-
-    event.reply('getAllNotesAnswer', notes)
-})

@@ -1,4 +1,5 @@
 const Database = require('../db/Database');
+const Note = require("../models/NotesComponents/Note");
 
 class NoteDAO{
     constructor() {
@@ -25,23 +26,25 @@ class NoteDAO{
     }
 
     async getNoteByID(noteID) {
-        try {
-            const connection = await Database.getInstance();
-            const rows = await new Promise((resolve, reject) => {
-                connection.get('SELECT * FROM notes WHERE notes_id=?', [noteID], (err, rows) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const connection = await Database.getInstance();
+                connection.get('SELECT * FROM notes WHERE notes_id=?', [noteID], (err, row) => {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve(rows);
+                        let note = new Note(row["NOTES_ID"],row["GRP_ID"],row["NOTES_LABEL"])
+                        resolve(note);
                     }
                 });
-            });
-
-            return rows;
-        } catch (err) {
-            console.log("error to retrieve note by id : ", err);
-        }
+            } catch (err) {
+                console.log("error to retrieve note by id : ", err);
+                reject(err);
+            }
+        });
     }
+
+
 
     insert(note){
         let {note_id,grp_id,message} = note
@@ -103,6 +106,23 @@ class NoteDAO{
             });
         } catch (err) {
             console.log("error to delete note : ", err);
+        }
+    }
+
+    async editNoteContent(noteID, content){
+        try {
+            const connection = await Database.getInstance();
+            await new Promise((resolve, reject) => {
+                connection.get('UPDATE notes SET notes_label=? WHERE notes_id=?', [content,noteID], (err, rows) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(rows);
+                    }
+                });
+            });
+        } catch (err) {
+            console.log("error to update note : ", err);
         }
     }
 

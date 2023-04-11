@@ -32,7 +32,7 @@ function NotesTable(props) {
                             <td>{item.message}</td>
 
                             <td>
-                                <img src="../assets/pictures/copyNote.svg" alt="Copier" onClick={() => handleCopyNote(item.note_id)} style={{ height:"38px", width:"38px", cursor: "pointer", marginRight:"8px" }} />
+                                <img src="../assets/pictures/copyNote.svg" alt="Copier" onClick={() => handleCopyNote(item.message)} style={{ height:"38px", width:"38px", cursor: "pointer", marginRight:"8px" }} />
                                 <img src="../assets/pictures/editNote.svg" alt="Editer" onClick={() => handleEditNote(item.note_id)} style={{ height:"46px", width:"46px", cursor: "pointer", marginLeft:"8px",marginRight:"8px" }} />
                                 <img src="../assets/pictures/deleteNote.svg" alt="Supprimer" onClick={() => handleDeleteNote(item.note_id)}  style={{ height:"42px", width:"42px", cursor: "pointer", marginLeft:"5px"}} />
                             </td>
@@ -46,12 +46,16 @@ function NotesTable(props) {
 }
 
 
-function handleCopyNote(noteID){
+function handleCopyNote(noteMessage){
     console.log("COPIER FRERO")
+    ipcRenderer.send("copyNote",noteMessage)
 }
+
 function handleEditNote(noteID){
     console.log("EDITER FRERO")
+    ipcRenderer.send("editNote",noteID)
 }
+
 function handleDeleteNote(noteID){
     console.log("SUPPRIME FRERO ",noteID)
     ipcRenderer.send("deleteNote",noteID)
