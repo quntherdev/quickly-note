@@ -2,12 +2,27 @@ const { BrowserWindow, app, ipcMain, globalShortcut, clipboard } = require('elec
 const Database = require("./src/db/Database");
 const NoteDAO = require('./src/db/NoteDAO');
 const Note = require("./src/models/NotesComponents/Note");
+const AutoLaunch = require('auto-launch');
 
 const noteDAO = new NoteDAO();
 
+
+app.on('ready', ()=>{
+    createWindow();
+
+    // launch app at startup
+    /*    let autoLaunch = new AutoLaunch({
+            name: 'QuicklyNote',
+            path: app.getPath('exe'),
+        });
+        autoLaunch.isEnabled().then((isEnable) => {
+            if(!isEnable) autoLaunch.enabled;
+        })*/
+})
+
+
 function createWindow() {
     Database.setupBase()
-
     app.setName("QuicklyNote")
 
     if (process.platform === 'win32')
@@ -34,18 +49,25 @@ function createWindow() {
 
     // Enregistrez le raccourci clavier global
     const ret = globalShortcut.register('CommandOrControl+C+X', async () => {
-        console.log('CommandOrControl+C+X is pressed');
-        console.log('Clipboard content: '+clipboard.readText());
+        let newNote = new Note(null, 1, clipboard.readText());
 
-        if(win.isMinimized()){
-            win.restore()
-        }
-        win.focus()
+        await noteDAO.insert(newNote);
+        const rows = await noteDAO.getAll();
+
+        const notes = rows.map(row => new Note(row.NOTES_ID, row.GRP_ID, row.NOTES_LABEL));
+
+        win.webContents.send('getAllNotesAnswer', notes)
+        win.show()
     });
 
     if (!ret) {
         console.error('Failed to register global shortcut');
     }
+
+    win.on('close', (event) => {
+        event.preventDefault() // empêche fermeture fenêtre
+        win.hide()
+    })
 }
 
 function createModalWindow() {
@@ -95,10 +117,6 @@ function createEditNoteWindow(note) {
         editNoteWindow.webContents.send("editNoteInfos", note)
     });
 }
-
-
-
-app.whenReady().then(createWindow);
 
 ipcMain.on('addNote', async (event, args) => {
     try {
